@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bv.dao.VokaMapper">
+<select id="randomWord" resultType="word">
+select * from (select
+	num
+	,yomi
+    ,NVL(word,'-') word
+from
+	jwords
+where
+    summary IS NOT NULL
+order by
+	DBMS_RANDOM.RANDOM)
+where
+	ROWNUM = 1
+</select>
+<select id="selectListWord" resultType="word" parameterType="String">
+select * from
+(select
+	num
+	,word
+	,yomi
+	,UTL_MATCH.jaro_winkler_similarity(#{keyword},yomi) ja
+from
+	jwords
+where
+	(yomi like #{keyword}||'%'
+	OR word like #{keyword}||'%')
+order by
+	ja desc)
+where
+	ROWNUM &lt; 10
+</select>
+<select id="selectDetailWord" resultType="word" parameterType="int">
+select
+	*
+from
+	jwords
+where
+	num=#{num}
+</select>
+<select id="selectQWordAll" resultType="word">
+select
+	*
+from
+	(select
+		num
+		,yomi
+		,word
+		,COALESCE(summary,meaning) summary
+		,type
+	from
+		jwords
+	where
+		((summary IS NOT NULL)
+		OR (word IS NOT NULL))
+		AND (type IS NOT NULL)
+	order by
+		DBMS_RANDOM.RANDOM)
+where
+	ROWNUM &lt; 11
+</select>
+<select id="selectQWordJLPT" resultType="word" parameterType="String">
+select
+	*
+from
+	(select
+		num
+		,yomi
+		,word
+		,COALESCE(summary,meaning) summary
+		,type
+	from
+		jwords
+	where
+		((summary IS NOT NULL)
+		OR (word IS NOT NULL))
+        AND jlpt = #{value}
+	order by
+		DBMS_RANDOM.RANDOM)
+where
+	ROWNUM &lt; 11
+</select>
+<select id="selectQWordStar" resultType="word" parameterType="int">
+select
+	*
+from
+	(select
+		num
+		,yomi
+		,word
+		,COALESCE(summary,meaning) summary
+		,type
+	from
+		jwords
+	where
+		((summary IS NOT NULL)
+		OR (word IS NOT NULL))
+        AND star = #{value}
+        AND (type IS NOT NULL)
+	order by
+		DBMS_RANDOM.RANDOM)
+where
+	ROWNUM &lt; 11
+</select>
+<select id="selectQWordVoca" resultType="word" parameterType="String">
+select
+	*
+from
+	(select
+		jw.num
+		,jw.yomi
+		,jw.word
+		,COALESCE(jw.summary,jw.meaning) summary
+		,jw.type
+		,NVL(jv.remembered,TO_DATE('19000101000000','YYYYMMDDHH24MISS')) REMD
+	from
+		jvoca jv, jwords jw
+	where
+		jv.vnum = jw.num AND
+		((jw.summary IS NOT NULL)
+		OR (jw.word IS NOT NULL))
+		AND jv.owner = #{value}
+	order by
+		REMD asc)
+where
+	ROWNUM &lt; 11
+</select>
+<update id="updateMemVoca" parameterType="int">
+update
+	jvoca
+set
+	remembered=SYSDATE
+where
+	vnum = #{value}
+</update>
+
+<select id="selectKanjiSimilar" resultType="word" parameterType="word">
+select * from jwords
+where
+	yomi=#{yomi, jdbcType=VARCHAR}
+	AND word like #{word, jdbcType=VARCHAR}
+</select>
+
+
+
+<select id="countVoca" resultType="int" parameterType="String">
+select COUNT(*) from jvoca
+where owner = #{value}
+</select>
+<select id="selectVoca" resultType="voca" parameterType="hashmap">
+select * from
+    (select rownum r, m.* from
+		(select
+			jv.vnum "num"
+		    ,jw.word "word"
+		    ,jw.yomi "yomi"
+		    ,jw.type "type"
+		    ,jw.summary "summary"
+		    ,jv.inserted "added"
+		    ,jv.remembered "remembered"
+		    ,jv.owner "user"
+		from
+			jvoca jv, jwords jw
+		where
+			jv.owner = #{user}
+	        AND jv.vnum = jw.num
+		order by
+			jv.inserted DESC) m)
+WHERE
+	r &gt;= #{startitem} AND r &lt;= #{enditem}
+</select>
+<select id="hasVoca" resultType="voca" parameterType="voca">
+select vnum num
+from jvoca
+where vnum = #{num} AND owner = #{user} 
+</select>
+<update id="newVoca" parameterType="voca">
+merge into
+	jvoca a
+	using dual
+	on
+		(a.vnum = #{num} AND a.owner = #{user})
+	when matched then
+    	update set inserted = SYSDATE
+	when not matched then
+    	insert (
+    		vnum
+    		,owner
+    	) values (
+    		#{num}
+    		,#{user}
+    	)
+</update>
+<update id="rememberVoca" parameterType="voca">
+update
+	jvoca
+set
+	remembered = SYSDATE
+where
+	vnum = #{voca}
+	AND owner = #{user}
+</update>
+<delete id="deleteVoca" parameterType="voca">
+delete from
+	jvoca
+where
+	<if test="num != 0">
+	vnum=#{num} AND
+	</if>
+	owner = #{user}
+</delete>
+
+
+<select id="selectUser" resultType="user">
+select
+	*
+from
+	jusers
+order by
+	username asc
+</select>
+
+<insert id="insertUser" parameterType="String">
+insert into
+	jusers
+	(
+		username
+	)
+values
+	(
+		#{value}
+	)
+</insert>
+<delete id="deleteUser" parameterType="String">
+delete from
+	jusers
+where username=#{value}
+</delete>
+</mapper>

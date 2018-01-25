@@ -5,10 +5,10 @@
 <configuration>
 	
 	<typeAliases>
-		<typeAlias type="me.yeon.jsontest.vo.Comment" alias="comment" />
+		<!--<typeAlias type="me.yeon.jsontest.vo.Comment" alias="comment" />-->
 	</typeAliases>
 	
 	<mappers>
-		<mapper resource="mapper/commentMapper.xml" />
+		<!--<mapper resource="mapper/vokaMapper.xml" />-->
 	</mappers>
 </configuration>

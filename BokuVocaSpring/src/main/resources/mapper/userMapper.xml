@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="me.yeon.bokuvoca.users.dao.UserMapper">
+<!-- 사용자 선택, 로그인 확인 -->
+<select id="selectUser" parameterType="user" resultType="user">
+select
+	username
+	,email
+	,photo
+	,to_char(registered,'YYYY-MM-DD HH24:MI:SS')
+	,to_char(lastlogin,'YYYY-MM-DD HH24:MI:SS')
+from
+	jusers
+where
+	username=#{username}
+	AND password=#{password}
+</select>
+
+<!-- 로그인시 로그인 일시 업데이트 -->
+<update id="updateLogin" parameterType="user">
+update
+	jusers
+set
+	lastlogin=SYSDATE()
+where
+	username=#{username}
+</update>
+
+<!-- 사용자 추가 -->
+<insert id="insertUser" parameterType="String">
+insert into
+	jusers
+	(
+		username
+		,email
+		,photo
+		,password
+	)
+values
+	(
+		#{username}
+		,#{email}
+		,#{photo}
+		,#{password}
+	)
+</insert>
+<!--
+<delete id="deleteUser" parameterType="String">
+delete from
+	jusers
+where username=#{value}
+</delete>
+-->
+</mapper>

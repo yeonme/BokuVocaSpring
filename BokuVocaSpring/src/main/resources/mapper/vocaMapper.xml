@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="bv.dao.VokaMapper">
+<mapper namespace="me.yeon.bokuvoca.words.dao.VocaMapper">
 <select id="randomWord" resultType="word">
 select * from (select
 	num

@@ -1,13 +1,27 @@
 package me.yeon.bokuvoca.users.controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import me.yeon.bokuvoca.HomeController;
+import me.yeon.bokuvoca.users.dao.UserDAO;
+
 @Controller
-public class UsersController {
+public class UserController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	
+	@Autowired
+	UserDAO dao;
+	
 	/**
 	 * 로그인 페이지 진입
 	 * @return
@@ -22,7 +36,8 @@ public class UsersController {
 	 * @return
 	 */
 	@RequestMapping(value="login", method = RequestMethod.POST)
-	public String login(){
+	public String login(Model model, HttpSession session){
+		
 		return "login";
 	}
 	

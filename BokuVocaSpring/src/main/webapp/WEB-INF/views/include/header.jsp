@@ -21,7 +21,7 @@
 			<li class="logout" style="display: none;"><a href="logout">
 					로그아웃</a></li>
 			<li>
-				<!--<a href="info.html" title="정보">--> <a href="./"> <i
+				<!--<a href="info.html" title="정보">--> <a href="info"> <i
 					class="material-icons">info</i>
 			</a>
 			</li>

@@ -30,7 +30,7 @@
         </div>
         <div class="row center">
             <a href="#" id="login-button" class="btn-large waves-effect waves-light blue">로그인</a>&nbsp;
-            <a href="ajax/join.html" id="join-button" class="btn-large waves-effect waves-light orange" style="font-weight:bold;">매우 빠른 회원 가입</a>
+            <a href="join" id="join-button" class="btn-large waves-effect waves-light orange" style="font-weight:bold;">매우 빠른 회원 가입</a>
         </div>
         <br>
         <br>

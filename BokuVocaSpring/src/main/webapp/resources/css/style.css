@@ -6,10 +6,15 @@
  * Made By MaterializeCSS.com
  */
 @import url(//fonts.googleapis.com/earlyaccess/hanna.css); 
-html {font-family: 'Hanna', sans-serif !important; font-size:110% !important;}
+html {font-family: 'Meiryo', 'MS PGothic', 'Hanna',  sans-serif !important; font-size:110% !important;}
 .icon-block {
   padding: 0 15px;
 }
 .icon-block .material-icons {
 	font-size: inherit;
 }
+h3.wtitle{clear: none; display: inline-block; margin-right: 10px;}
+h4.wyomi{opacity: 0.5; display: inline-block; clear: none;}
+h5.wsum{}
+h4.wstar{margin-left:10px;display:inline-block; color:maroon;}
+p.wjlpt{margin-left:10px;display:inline-block; font-size:200%;}

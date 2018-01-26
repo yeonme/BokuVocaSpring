@@ -16,7 +16,9 @@ from
 	jusers
 where
 	username=#{username}
+	<if test="password != null">
 	AND password=#{password}
+	</if>
 </select>
 
 <!-- 로그인시 로그인 일시 업데이트 -->

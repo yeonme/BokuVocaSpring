@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
   
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
@@ -18,9 +19,11 @@
 	<div class="nav-wrapper container">
 		<a id="logo-container" href="./" class="brand-logo">ボクのボカ</a>
 		<ul class="right hide-on-med-and-down">
-			<li class="logout" style="display: none;"><a href="logout">
+		<c:if test="${sessionScope.userName != null}">
+			<li class="logout"><a href="logout">
 					로그아웃</a></li>
 			<li>
+		</c:if>
 				<!--<a href="info.html" title="정보">--> <a href="info"> <i
 					class="material-icons">info</i>
 			</a>

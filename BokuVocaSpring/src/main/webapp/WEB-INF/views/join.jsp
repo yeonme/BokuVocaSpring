@@ -22,23 +22,23 @@ password
 			<div class="row center">
 				<div class="input-field col s12">
 					<i class="material-icons prefix">account_circle</i> <input
-						id="username" type="text" class="validate" required minlength="2">
-					<label for="icon_prefix" data-error="너무 짧은 사용자 이름입니다."
-						data-success="길이가 충족됩니다.">Name</label>
+						id="username" name="username" type="text" class="validate" required minlength="2" oninput="checkId();">
+					<label for="icon_prefix">사용자 이름</label>
+					<p id="username_label"></p>
 				</div>
 			</div>
 			<div class="row center">
 				<div class="input-field col s12">
-					<i class="material-icons prefix">drafts</i> <input id="mail"
-						type="email" class="validate"> <label for="icon_prefix"
+					<i class="material-icons prefix">drafts</i> <input id="email"
+						type="email" name="email" class="validate"> <label for="icon_prefix"
 						data-error="올바른 이메일 형식이 아닙니다." data-success="이메일 형식을 갖추었습니다.">E-mail</label><br />
 					<span id="mailmsg"></span>
 				</div>
 			</div>
 			<div class="row center">
 				<div class="input-field col s12">
-					<i class="material-icons prefix">enhanced_encryption</i> <input
-						id="password" type="password" class="validate" required
+					<i class="material-icons prefix">enhanced_encryption</i> <input id="password"
+						id="password" name="password" type="password" class="validate" required
 						minlength="6" maxlength="30"> <label for="password"
 						data-error="암호는 6자 이상 30자 이하여야 합니다." data-success="사용 가능한 암호">암호</label>
 				</div>
@@ -57,7 +57,7 @@ password
 					<div class="btn blue darken-1">
 						<span><i class="material-icons prefix">add_a_photo</i></span>
 					</div>
-					<input id="photo" type="file" accept=".png,.jpg,.jpeg,.gif">
+					<input id="photo" name="photo" type="file" accept=".png,.jpg,.jpeg,.gif">
 					<div class="file-path-wrapper">
 						<input class="file-path validate" type="text" placeholder="프로필 사진">
 					</div>
@@ -68,14 +68,46 @@ password
 
 				<button class="btn-large waves-effect waves-light light-blue" type="submit"
 					name="action">
-					가입 <i class="material-icons right">send</i>
+					가입 <i class="material-icons right">edit</i>
 				</button>
 				&nbsp;<a href="./" id="cancel-button"
-					class="btn-large waves-effect waves-light red">취소</a>
+					class="btn-large waves-effect waves-light red">취소 <i class="material-icons right">cancel</i></a>
 			</div>
 			<br> <br>
 
 		</div>
 	</div>
 </form>
+<script>
+function checkId(){
+	var username = $('#username').val();
+	if(username.length == 0){
+		return;
+	}
+	$.ajax({
+		url: 'vaildateId',
+		type: 'post',
+		data: {
+			username: username 
+		},
+		//dataType: 'json',
+		success: function(result){
+			console.log('성공: '+result);
+			if(result["result"]=="ok"){
+				document.getElementById('username').setCustomValidity("");
+				//$('#username').after().text("사용할 수 있는 아이디입니다.");
+				$('#username_label').text("");
+			} else {
+				//$('#username').get().validity.valid = false;
+				$('#username_label').text("입력하신 아이디는 사용중입니다.");
+				document.getElementById('username').setCustomValidity("입력하신 아이디는 사용중입니다.");
+				//$('#username').after().text("사용할 수 없는 아이디임이 확인됐습니다.");
+			}
+		},
+		error: function(result){
+			console.log('에러: '+result);
+		}		
+	});
+}
+</script>
 <%@ include file="include/footer.jsp"%>

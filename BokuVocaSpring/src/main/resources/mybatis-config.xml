@@ -5,11 +5,13 @@
 <configuration>
 	
 	<typeAliases>
-		<!--<typeAlias type="me.yeon.jsontest.vo.Comment" alias="comment" />-->
+		<typeAlias type="me.yeon.bokuvoca.users.vo.JUser" alias="user" />
+		<typeAlias type="me.yeon.bokuvoca.words.vo.JWordItem" alias="word" />
+		<typeAlias type="me.yeon.bokuvoca.words.vo.JVocaItem" alias="voca" />
 	</typeAliases>
 	
 	<mappers>
-		<!--<mapper resource="mapper/userMapper.xml" />
-		<mapper resource="mapper/vocaMapper.xml" />-->
+		<mapper resource="mapper/userMapper.xml" />
+		<mapper resource="mapper/vocaMapper.xml" />
 	</mappers>
 </configuration>

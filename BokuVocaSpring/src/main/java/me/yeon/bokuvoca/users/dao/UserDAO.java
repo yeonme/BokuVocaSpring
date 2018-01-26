@@ -17,6 +17,7 @@ public class UserDAO {
 	SqlSession sqlSession;
 	
 	public JUser selectUser(JUser user){
+		logger.info("IN selectUser");
 		UserMapper mapper = sqlSession.getMapper(UserMapper.class);
 		JUser result = null;
 		try{
@@ -24,10 +25,12 @@ public class UserDAO {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		logger.info("OUT selectUser");
 		return result;
 	}
 	
 	public boolean updateLogin(JUser user){
+		logger.info("IN updateLogin");
 		UserMapper mapper = sqlSession.getMapper(UserMapper.class);
 		boolean result = false;
 		try{
@@ -35,10 +38,12 @@ public class UserDAO {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		logger.info("OUT updateLogin");
 		return result;
 	}
 	
 	public boolean insertUser(JUser user){
+		logger.info("IN insertUser");
 		UserMapper mapper = sqlSession.getMapper(UserMapper.class);
 		boolean result = false;
 		try{
@@ -46,6 +51,7 @@ public class UserDAO {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		logger.info("OUT insertUser");
 		return result;
 	}
 }

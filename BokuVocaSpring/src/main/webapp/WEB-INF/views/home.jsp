@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -12,11 +13,11 @@
         <br>
         <h1 class="header center orange-text">보쿠노보카</h1>
         <div class="row center">
-            <h5 class="header col s12 light">나와 모두의 일본어 단어장</h5>
+            <h5 class="header col s12 light"><fmt:formatNumber value="${countWord}" pattern="#,###,###" />개의 표제어가 있는, 나와 모두의 일본어 단어장</h5>
         </div>
         <div class="row center">
             <!-- <p>반갑습니다. ${session.userName }님.</p>-->
-            <div id="profile_card">
+            <div id="profile_card" class="center col s12">
             </div>
             <!--<a href="http://materializecss.com/getting-started.html" id="login-button" class="btn-large waves-effect waves-light orange"></a>-->
             <div class="input-field col s12 ui-widget">
@@ -26,8 +27,11 @@
             </div>
         </div>
         <ul id="autocomplete-ul" class="collection" style="font-size:90%;">
-
+			
         </ul>
+        <div id="word_result" class="card blue lighten-5">
+        
+        </div>
         <br>
         <br>
 
@@ -49,7 +53,7 @@
 
                     <p class="light">과연 내가 알고 있는 것이 전부일까요? 사전에는 아직까지 스쳐지나가지 않은 어휘들이 수두룩합니다.</p>
                     <p class="light center">
-                        <a class="btn-large waves-effect waves-light blue">입장하기</a>
+                        <a class="btn-large waves-effect waves-light blue" href="quiz">입장하기</a>
                     </p>
                 </div>
             </div>
@@ -63,7 +67,7 @@
 
                     <p class="light">여러분이 기억한 단어, 틀린 단어가 모두 한 곳에 모여 있습니다. 어쩐지 자꾸만 가까이하고 싶어지고, 단어장만 모아서 퀴즈도 풀고, 그러다보면 나도 모르게 기억하게 됩니다.</p>
                     <p class="light center">
-                        <a class="btn-large waves-effect waves-light blue">입장하기</a>
+                        <a class="btn-large waves-effect waves-light blue" href="voca">입장하기</a>
                     </p>
                 </div>
             </div>
@@ -73,4 +77,29 @@
     <br>
     <br>
 </div>
+<script>
+$(function(){
+	$.ajax({
+		url: "profile",
+		success: function(result){
+			$('#profile_card').html(result);
+		},
+		error:function(){
+			$('#profile_card').hide();
+		}
+	});
+	$.ajax({
+		url: "word",
+		data: {
+			num: ${rword.num}
+		},
+		success: function(result){
+			$('#word_result').html(result);
+		},
+		error:function(){
+			$('#word_result').hide();
+		}
+	});
+});
+</script>
 <%@ include file="include/footer.jsp" %>

@@ -18,6 +18,9 @@ order by
 where
 	ROWNUM = 1
 </select>
+<select id="countWord" resultType="int">
+select COUNT(*) from jwords
+</select>
 <select id="selectListWord" resultType="word" parameterType="String">
 select * from
 (select

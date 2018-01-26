@@ -25,7 +25,7 @@
 	</div>
 	<div class="footer-copyright">
 		<div class="container">
-			Made by <a class="orange-text text-lighten-3"
+			Made by <a href="https://yeon.me/" target="_blank" class="white-text">Jinbaek Lee</a>. Spring + Apache Tomcat8. library: <a class="orange-text text-lighten-3"
 				href="http://materializecss.com">Materialize</a>
 		</div>
 	</div>

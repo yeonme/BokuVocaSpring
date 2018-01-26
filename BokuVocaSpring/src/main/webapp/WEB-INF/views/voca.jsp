@@ -4,7 +4,7 @@
 <html lang="ko">
 
 <head>
-  <title>ボクのボカ - 반가워요</title>
+  <title>ボクのボカ - 단어장</title>
 <%@ include file="include/header.jsp"  %>
 <div class="section no-pad-bot" id="index-banner">
 </div>

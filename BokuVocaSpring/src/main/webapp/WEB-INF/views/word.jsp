@@ -10,4 +10,5 @@
 </div>
 <div class="card-action">
 	<a href="#" class="blue-text">단어장 등록</a>
+	<a href="javascript:refreshWord();" class="blue-text">다른 단어</a>
 </div>

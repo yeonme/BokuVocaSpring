@@ -33,7 +33,8 @@ public class VocaController {
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String home(HttpSession session, Model model) {
 		if (session.getAttribute("userName") != null) {
-			model.addAttribute("rword", dao.randomWord());
+			//model.addAttribute("rword", dao.randomWord());
+			//랜덤은 word에서 자체적으로 구현하자.
 			model.addAttribute("countWord", dao.countWord());
 			return "home";
 		} else {
@@ -81,15 +82,19 @@ public class VocaController {
 	@RequestMapping(value = "word", method = RequestMethod.GET)
 	public String word(JWordItem word, Model model, HttpServletResponse response) {
 		// 단어 뜻 페이지
+		int wnum = 0;
 		if (word == null || word.getNum() <= 0) {
-			try {
+			/*try {
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			return null;
+			return null;*/
+			wnum = dao.randomWord().getNum();
+		} else {
+			wnum = word.getNum();
 		}
-		JWordItem item = dao.selectDetailWord(word.getNum());
+		JWordItem item = dao.selectDetailWord(wnum);
 		if(item.getMeaning() != null){
 			item.setMeaning(item.getMeaning().replaceAll("\n", "<br/>"));
 		}

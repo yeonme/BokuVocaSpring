@@ -78,6 +78,18 @@
     <br>
 </div>
 <script>
+function refreshWord(){
+	$.ajax({
+		url: "word",
+		success: function(result){
+			$('#word_result').html(result);
+		},
+		error:function(){
+			$('#word_result').hide();
+		}
+	});
+}
+
 $(function(){
 	$.ajax({
 		url: "profile",
@@ -88,18 +100,7 @@ $(function(){
 			$('#profile_card').hide();
 		}
 	});
-	$.ajax({
-		url: "word",
-		data: {
-			num: ${rword.num}
-		},
-		success: function(result){
-			$('#word_result').html(result);
-		},
-		error:function(){
-			$('#word_result').hide();
-		}
-	});
+	refreshWord();
 });
 </script>
 <%@ include file="include/footer.jsp" %>

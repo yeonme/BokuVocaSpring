@@ -28,6 +28,8 @@ select * from
 	,word
 	,yomi
 	,UTL_MATCH.jaro_winkler_similarity(#{keyword},yomi) ja
+	,jlpt
+	,star
 from
 	jwords
 where
@@ -132,6 +134,39 @@ from
 		REMD asc)
 where
 	ROWNUM &lt; 11
+</select>
+<select id="listYomiByLength" parameterType="hashmap" resultType="word">
+select
+*
+from
+(select
+	yomi
+from
+	jwords
+where
+	yomi!=#{answer}
+	AND LENGTH(yomi)=#{length}
+order by
+	DBMS_RANDOM.RANDOM)
+where
+	ROWNUM &lt; 5
+</select>
+<select id="listKanjiByLength" parameterType="hashmap" resultType="word">
+select
+*
+from
+(select
+	word
+	,yomi
+from
+	jwords
+where
+	word!=#{answer}
+	AND LENGTH(word)=#{length}
+order by
+	DBMS_RANDOM.RANDOM)
+where
+	ROWNUM &lt; 5
 </select>
 <update id="updateMemVoca" parameterType="int">
 update

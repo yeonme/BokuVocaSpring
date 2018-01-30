@@ -17,10 +17,10 @@
 <body>
 <nav class="light-blue lighten-1" role="navigation">
 	<div class="nav-wrapper container">
-		<a id="logo-container" href="./" class="brand-logo">ボクのボカ</a>
+		<a id="logo-container" href="<c:url value='/'/>" class="brand-logo">ボクのボカ</a>
 		<ul class="right hide-on-med-and-down">
 		<c:if test="${sessionScope.userName != null}">
-			<li class="logout"><a href="logout">
+			<li class="logout"><a href="<c:url value='/logout'/>">
 					로그아웃</a></li>
 			<li>
 		</c:if>

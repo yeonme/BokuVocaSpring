@@ -1,5 +1,8 @@
 package me.yeon.bokuvoca.words.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import me.yeon.bokuvoca.users.controller.UserController;
 import me.yeon.bokuvoca.users.dao.UserMapper;
 import me.yeon.bokuvoca.users.vo.JUser;
+import me.yeon.bokuvoca.words.vo.JVocaItem;
 import me.yeon.bokuvoca.words.vo.JWordItem;
 
 @Repository
@@ -57,16 +61,125 @@ public class VocaDAO {
 		return result;
 	}
 	
-	public boolean updateLogin(JUser user){
-		logger.info("IN updateLogin");
-		UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-		boolean result = false;
+	public ArrayList<JWordItem> selectListWord(String keyword){
+		logger.info("IN selectListWord");
+		VocaMapper mapper = sqlSession.getMapper(VocaMapper.class);
+		ArrayList<JWordItem> result = null;
 		try{
-			result = mapper.updateLogin(user) > 0;
+			result = mapper.selectListWord(keyword);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		logger.info("OUT updateLogin");
+		logger.info("OUT selectListWord");
+		return result;
+	}
+	
+	public ArrayList<JWordItem> selectQWordAll(){
+		logger.info("IN selectQWordAll");
+		VocaMapper mapper = sqlSession.getMapper(VocaMapper.class);
+		ArrayList<JWordItem> result = null;
+		try{
+			result = mapper.selectQWordAll();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		logger.info("OUT selectQWordAll");
+		return result;
+	}
+	public ArrayList<JWordItem> selectQWordJLPT(String jlpt){
+		logger.info("IN selectQWordJLPT");
+		VocaMapper mapper = sqlSession.getMapper(VocaMapper.class);
+		ArrayList<JWordItem> result = null;
+		try{
+			result = mapper.selectQWordJLPT(jlpt);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		logger.info("OUT selectQWordJLPT");
+		return result;
+	}
+	public ArrayList<JWordItem> selectQWordStar(int star){
+		logger.info("IN selectQWordStar");
+		VocaMapper mapper = sqlSession.getMapper(VocaMapper.class);
+		ArrayList<JWordItem> result = null;
+		try{
+			result = mapper.selectQWordStar(star);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		logger.info("OUT selectQWordStar");
+		return result;
+	}
+	public ArrayList<JWordItem> selectQWordVoca(String user){
+		logger.info("IN selectQWordVoca");
+		VocaMapper mapper = sqlSession.getMapper(VocaMapper.class);
+		ArrayList<JWordItem> result = null;
+		try{
+			result = mapper.selectQWordVoca(user);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		logger.info("OUT selectQWordVoca");
+		return result;
+	}
+	public ArrayList<JWordItem> listYomiByLength(HashMap<String,Object> hmap){
+		logger.info("IN listYomiByLength");
+		VocaMapper mapper = sqlSession.getMapper(VocaMapper.class);
+		ArrayList<JWordItem> result = null;
+		try{
+			result = mapper.listYomiByLength(hmap);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		logger.info("OUT listYomiByLength");
+		return result;
+	}
+	public ArrayList<JWordItem> listKanjiByLength(HashMap<String,Object> hmap){
+		logger.info("IN listKanjiByLength");
+		VocaMapper mapper = sqlSession.getMapper(VocaMapper.class);
+		ArrayList<JWordItem> result = null;
+		try{
+			result = mapper.listKanjiByLength(hmap);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		logger.info("OUT listKanjiByLength");
+		return result;
+	}
+	public boolean newVoca(JVocaItem voca){
+		logger.info("IN newVoca");
+		VocaMapper mapper = sqlSession.getMapper(VocaMapper.class);
+		boolean result = false;
+		try{
+			result = mapper.newVoca(voca)>0;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		logger.info("OUT newVoca");
+		return result;
+	}
+	public boolean deleteVoca(JVocaItem voca){
+		logger.info("IN deleteVoca");
+		VocaMapper mapper = sqlSession.getMapper(VocaMapper.class);
+		boolean result = false;
+		try{
+			result = mapper.deleteVoca(voca)>0;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		logger.info("OUT deleteVoca");
+		return result;
+	}
+	public JVocaItem hasVoca(JVocaItem voca){
+		logger.info("IN hasVoca");
+		VocaMapper mapper = sqlSession.getMapper(VocaMapper.class);
+		JVocaItem result = null;
+		try{
+			result = mapper.hasVoca(voca);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		logger.info("OUT hasVoca");
 		return result;
 	}
 }

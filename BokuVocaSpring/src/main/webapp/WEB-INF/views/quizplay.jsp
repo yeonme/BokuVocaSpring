@@ -61,7 +61,7 @@ $(function(){
 		}else{
 			//오답
 			result.push({"word": q[qnum]["bogi"][q[qnum]["answer"]]["num"], "correct": false});
-			$('#result').append('<li class="collection-item"><div>'+$('#question').text()+'<a href="#!" class="secondary-content"><i class="material-icons">close</i>'+q[qnum]["bogi"][q[qnum]["answer"]]["yomi"]+'</a></div></li>');
+			$('#result').append('<li class="collection-item"><div>'+$('#question').text()+'<a href="#!" class="secondary-content wrong"><i class="material-icons">close</i>'+q[qnum]["bogi"][q[qnum]["answer"]]["yomi"]+'</a></div></li>');
 		}
 		if(qnum >= 9){
 			$('.bogi').off('click');

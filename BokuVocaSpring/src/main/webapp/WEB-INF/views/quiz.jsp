@@ -27,7 +27,7 @@
 			</li>
 			<li>
 				<div class="collapsible-header">
-					<i class="material-icons">whatshot</i>JLPT N 급수별<a href="<c:url value='/quiz/jlpt5'/>" class="rightfloat waves-effect waves-light btn">N5</a><a href="<c:url value='/quiz/jlpt4'/>" class="rightfloat waves-effect waves-light btn">N4</a><a href="<c:url value='/quiz/jlpt3'/>" class="rightfloat waves-effect waves-light btn">N3</a><a href="<c:url value='/quiz/jlpt2'/>" class="rightfloat waves-effect waves-light btn">N2</a><a href="<c:url value='/quiz/jlpt1'/>" class="rightfloat waves-effect waves-light btn">N1</a>
+					<i class="material-icons">error</i>JLPT N 급수별<a href="<c:url value='/quiz/jlpt5'/>" class="rightfloat waves-effect waves-light btn">N5</a><a href="<c:url value='/quiz/jlpt4'/>" class="rightfloat waves-effect waves-light btn">N4</a><a href="<c:url value='/quiz/jlpt3'/>" class="rightfloat waves-effect waves-light btn">N3</a><a href="<c:url value='/quiz/jlpt2'/>" class="rightfloat waves-effect waves-light btn">N2</a><a href="<c:url value='/quiz/jlpt1'/>" class="rightfloat waves-effect waves-light btn">N1</a>
 				</div>
 				<div class="collapsible-body">
 					<span>JLPT N 급수를 한정하여 JLPT 특별 대비를 해봅시다.</span>
@@ -35,7 +35,7 @@
 			</li>
 			<li>
 				<div class="collapsible-header">
-					<i class="material-icons">whatshot</i>내 단어장에서 출제<a href="<c:url value='/quiz/voca'/>" class="rightfloat waves-effect waves-light btn">입장하기</a>
+					<i class="material-icons">edit</i>내 단어장에서 출제<a href="<c:url value='/quiz/voca'/>" class="rightfloat waves-effect waves-light btn">입장하기</a>
 				</div>
 				<div class="collapsible-body">
 					<span>내 단어장에 저장된 단어에서만 출제하면 단어장의 암기 현황을 확인할 수 있습니다.</span>

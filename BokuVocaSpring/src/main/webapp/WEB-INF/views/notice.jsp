@@ -9,7 +9,7 @@
 </head>
 <body>
 <c:choose>
-<c:when test="${message != null}">
+<c:when test="${url != null}">
 <script>
 alert('${message}');
 location.href='${url}';
@@ -17,6 +17,7 @@ location.href='${url}';
 </c:when>
 <c:otherwise>
 <script>
+alert('${message}');
 history.go(-1);
 </script>
 </c:otherwise>

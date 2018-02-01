@@ -182,4 +182,33 @@ public class VocaDAO {
 		logger.info("OUT hasVoca");
 		return result;
 	}
+	/**
+	 * WOW
+	 * @param hmap: user / startitem / enditem
+	 * @return
+	 */
+	public ArrayList<JVocaItem> selectVoca(HashMap<String,Object> hmap){
+		logger.info("IN selectVoca");
+		VocaMapper mapper = sqlSession.getMapper(VocaMapper.class);
+		ArrayList<JVocaItem> result = null;
+		try{
+			result = mapper.selectVoca(hmap);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		logger.info("OUT selectVoca");
+		return result;
+	}
+	public int countVoca(String user){
+		logger.info("IN countVoca");
+		VocaMapper mapper = sqlSession.getMapper(VocaMapper.class);
+		int result = 0;
+		try{
+			result = mapper.countVoca(user);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		logger.info("OUT countVoca");
+		return result;
+	}
 }

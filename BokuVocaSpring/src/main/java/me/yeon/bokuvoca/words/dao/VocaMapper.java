@@ -20,4 +20,6 @@ public interface VocaMapper {
 	public int newVoca(JVocaItem voca);
 	public int deleteVoca(JVocaItem voca);
 	public JVocaItem hasVoca(JVocaItem voca);
+	public ArrayList<JVocaItem> selectVoca(HashMap<String,Object> hmap);
+	public int countVoca(String user);
 }

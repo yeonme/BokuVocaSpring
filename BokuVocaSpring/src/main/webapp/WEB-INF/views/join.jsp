@@ -6,7 +6,7 @@
 <head>
 <title>ボクのボカ - 회원 가입</title>
 <%@ include file="include/header.jsp"%>
-<form method="post">
+<form method="post" onsubmit="return formcheck()" enctype="multipart/form-data">
 <%--
 username
 email
@@ -57,7 +57,7 @@ password
 					<div class="btn blue darken-1">
 						<span><i class="material-icons prefix">add_a_photo</i></span>
 					</div>
-					<input id="photo" name="photo" type="file" accept=".png,.jpg,.jpeg,.gif">
+					<input id="file" name="file" type="file" accept=".png,.jpg,.jpeg,.gif">
 					<div class="file-path-wrapper">
 						<input class="file-path validate" type="text" placeholder="프로필 사진">
 					</div>
@@ -79,9 +79,34 @@ password
 	</div>
 </form>
 <script>
+var vaildate =false;
+function formcheck(){
+	var id = $('#username').val();
+	var pass = $('#password').val();
+	var pass2 = $('#password2').val();
+	var email = $('#email').val();
+	
+	if(id == null || pass == null || pass2 == null || email == null){
+		alert('입력값이 누락되었습니다.');
+		return false;
+	}else if(id.length <= 0 || pass.length <= 0 || pass2.length <= 0 || email.length <= 0){
+		alert('입력값이 누락되었습니다.');
+		return false;
+	}else if(id.length < 4){
+		alert('아이디는 4자 초과여야 합니다.');
+		return false;
+	}else if(pass.length < 6){
+		alert('비밀번호 최저 길이는 6자입니다.');
+		return false;
+	}else if(pass != pass2){
+		alert('비밀번호 확인이 일치하지 않습니다.');
+		return false;
+	}
+}
 function checkId(){
+	vaildate = false;
 	var username = $('#username').val();
-	if(username.length == 0){
+	if(username.length < 4 || username.length > 20){
 		return;
 	}
 	$.ajax({
@@ -92,6 +117,7 @@ function checkId(){
 		},
 		//dataType: 'json',
 		success: function(result){
+			vaildate = true;
 			console.log('성공: '+result);
 			if(result["result"]=="ok"){
 				document.getElementById('username').setCustomValidity("");
@@ -105,6 +131,7 @@ function checkId(){
 			}
 		},
 		error: function(result){
+			vaildate = false;
 			console.log('에러: '+result);
 		}		
 	});

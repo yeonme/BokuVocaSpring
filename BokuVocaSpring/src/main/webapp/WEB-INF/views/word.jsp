@@ -17,7 +17,9 @@
 	<a href="javascript:addWord(${word.num })" class="blue-text">단어장에 등록</a>
 </c:otherwise>
 </c:choose>
+<c:if test="${param.nojump != '1'}">
 	<a href="javascript:refreshWord();" class="blue-text">아무 단어</a>
+</c:if>
 </div>
 <script>
 var thisnum = ${word.num};

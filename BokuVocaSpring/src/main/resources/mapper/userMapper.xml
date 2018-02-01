@@ -45,7 +45,7 @@ values
 	(
 		#{username}
 		,#{email}
-		,#{photo}
+		,#{photo, jdbcType=VARCHAR}
 		,#{password}
 	)
 </insert>

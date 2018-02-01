@@ -176,8 +176,19 @@ public class VocaController {
 	 * @return
 	 */
 	@RequestMapping(value = "voca", method = RequestMethod.GET)
-	public String voca() {
+	public String voca(@RequestParam(value="page", required = false, defaultValue="1")int page, HttpSession session,
+			Model model) {
 		// 단어장 페이지
+		HashMap<String,Object> hmap = new HashMap<>();
+		String username = (String)session.getAttribute("userName");
+		hmap.put("user", username);
+		hmap.put("startitem", (page-1)*20+1);
+		hmap.put("enditem", (page-1)*20+20);
+		model.addAttribute("vocalist", dao.selectVoca(hmap));
+		int total = dao.countVoca(username);
+		model.addAttribute("total", total);
+		model.addAttribute("cpage", page);
+		model.addAttribute("tpage", Math.ceil(total / 20.0));
 		return "voca";
 	}
 
@@ -187,7 +198,7 @@ public class VocaController {
 	 * @return
 	 */
 	@RequestMapping(value = "word", method = RequestMethod.GET)
-	public String word(JWordItem word, Model model, HttpServletResponse response, HttpSession session) {
+	public String word(JWordItem word, @RequestParam(value="nojump", required = false)boolean nojump, Model model, HttpServletResponse response, HttpSession session) {
 		// 단어 뜻 페이지
 		int wnum = 0;
 		if (word == null || word.getNum() <= 0) {
@@ -211,6 +222,7 @@ public class VocaController {
 		JVocaItem voca = dao.hasVoca(v);
 		model.addAttribute("isWorded", voca != null);
 		model.addAttribute("word",item);
+		
 		StringBuilder sb = new StringBuilder();
 		for(int i=0; i < item.getStar(); i++){
 			sb.append("★");

@@ -17,7 +17,7 @@
 			<div class="row center">
 				<div class="input-field col s12">
 					<i class="material-icons prefix">account_circle</i> <input
-						type="text" id="username" name="username"> <label
+						type="text" id="username" name="username" value="${username }"> <label
 						for="icon_prefix">사용자 이름</label>
 				</div>
 			</div>
@@ -26,6 +26,12 @@
 					<i class="material-icons prefix">enhanced_encryption</i> <input
 						type="password" id="password" name="password"> <label for="password">암호</label>
 				</div>
+			</div>
+			<div class="row center">
+				<p>
+					<input type="checkbox" class="filled-in" id="filled-in-box" name="remember" <c:if test="${username != null}">checked="checked"</c:if> />
+					<label for="filled-in-box">아이디 기억</label>
+			    </p>
 			</div>
 			<div class="row center">
 				<button class="btn-large waves-effect waves-light blue"
